@@ -39,7 +39,6 @@ def load_questions(url: str, verbose: bool = False, max_value: int = 1200):
     batch_size = 500
     session = SessionLocal()
     total_inserted = 0  # Add counter
-    total_processed = 0  # Add counter for all processed records
 
     try:
         for chunk in pd.read_csv(url, chunksize=chunk_size, skipinitialspace=True):
