@@ -26,6 +26,16 @@ async def load_dataset(
     """
 
     def load_data():
+        from .database import engine, Base
+        from sqlalchemy import inspect
+        
+        # Check if tables exist
+        inspector = inspect(engine)
+        if not inspector.has_table("questions"):
+            # Create tables if they don't exist
+            Base.metadata.create_all(bind=engine)
+            print("Created database tables")
+            
         load_questions(
             url=url,
             max_value=max_value
