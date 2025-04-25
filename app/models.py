@@ -10,6 +10,6 @@ class Question(Base):
     air_date = Column(Date, index=True)
     round = Column(String, index=True)
     category = Column(String, index=True)
-    value = Column(String, index=True)
+    value = Column(Integer, index=True)
     question = Column(String, unique=True, index=True)
     answer = Column(String, index=True)

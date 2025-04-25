@@ -28,7 +28,7 @@ def row_to_dict(row):
         "air_date": datetime.strptime(row['Air Date'], "%Y-%m-%d").date(),
         "round": row['Round'],
         "category": row['Category'],
-        "value": row['Value'],
+        "value": clean_value(row['Value']),
         "question": row['Question'],
         "answer": row['Answer'],
     }
