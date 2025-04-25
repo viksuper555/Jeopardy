@@ -1,4 +1,5 @@
 import json
+from typing import Optional
 
 from sqlalchemy.orm import Session
 from sqlalchemy import func, select
@@ -6,14 +7,14 @@ from . import models
 from .chains import verifier_chain
 
 
-def get_random_question(db: Session, round_: str, value: int) -> models.Question | None:
-    """Return one random question matching round & value (uses DB-side random)."""
-    stmt = (
-        select(models.Question)
-        .where(models.Question.round == round_, models.Question.value == value)
-        .order_by(func.random())
-        .limit(1)
-    )
+def get_random_question(db: Session, round_: Optional[str] = None,
+                        value: Optional[int] = None) -> models.Question | None:
+    stmt = select(models.Question)
+    if round_ is not None:
+        stmt = stmt.where(models.Question.round == round_)
+    if value is not None:
+        stmt = stmt.where(models.Question.value == value)
+    stmt = stmt.order_by(func.random()).limit(1)
     return db.scalar(stmt)
 
 

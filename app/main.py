@@ -41,8 +41,8 @@ async def load_dataset(
     summary="Get one random question by round & value",
 )
 def random_question(
-        round: str = Query("Jeopardy!", examples={"ex": {"value": "Jeopardy!"}}),
-        value: int = Query(200, examples={"ex": {"value": 200}}),
+        round: str | None = None,
+        value: int | None = None,
         db: Session = Depends(get_db),
 ):
     q = crud.get_random_question(db, round, value)
